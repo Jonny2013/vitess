@@ -460,7 +460,7 @@ def run_vtctl_json(clargs):
   return json.loads(stdout)
 
 # vtworker helpers
-def run_vtworker(clargs, log_level='', auto_log=False, expect_fail=False, **kwargs):
+def run_vtworker(clargs, log_level='', auto_log=False, expect_fail=False, run_in_bg=False, **kwargs):
   args = environment.binary_args('vtworker') + [
           '-log_dir', environment.vtlogroot,
           '-min_healthy_rdonly_endpoints', '1',
@@ -481,6 +481,8 @@ def run_vtworker(clargs, log_level='', auto_log=False, expect_fail=False, **kwar
   cmd = args + clargs
   if expect_fail:
     return run_fail(cmd, **kwargs)
+  if run_in_bg:
+    return run_bg(cmd, **kwargs)
   return run(cmd, **kwargs)
 
 # vtclient2 helpers

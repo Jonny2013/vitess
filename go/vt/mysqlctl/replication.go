@@ -178,6 +178,7 @@ func (mysqld *Mysqld) SetReadOnly(on bool) error {
 	} else {
 		query += "OFF"
 	}
+	fmt.Printf("%v\n", query)
 	return mysqld.ExecuteSuperQuery(query)
 }
 
